@@ -1,0 +1,13 @@
+# Ignore Intellij Settings
+RpgEngine/.idea/*
+RpgEngine/RpgEngine.iml
+
+# Ignore .class files for Java
+*.class
+
+# Ignore generated files by server
+server/*
+
+# Ignore Maven generated files other than the .jar
+RpgEngine/target/classes
+RpgEngine/target/maven-archiver
