@@ -18,3 +18,5 @@ server/plugins/Engine/config.yml
 Engine/target/classes/*
 Engine/target/maven-archiver/*
 Engine/.idea/workspace.xml
+
+server/banned-ips.txt
