@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Maven: org.bukkit:bukkit:1.7.2-R0.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.7.2-R0.3-SNAPSHOT/bukkit-1.7.2-R0.3-20140210.232337-32.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="http://jd.bukkit.org/apidocs/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.7.2-R0.3-SNAPSHOT/bukkit-1.7.2-R0.3-20140210.232337-32-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f.zip!/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f.zip!/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f/src/test/java" />
+      <root url="jar://$USER_HOME$/Downloads/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f.zip!/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f/src/main/java" />
+      <root url="jar://$USER_HOME$/Downloads/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f.zip!/CraftBukkit-98fffc8e7aa773e99d64028d31ae38a52736b14f/src/test/java" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/bukkit/bukkit/1.7.2-R0.3-SNAPSHOT/bukkit-1.7.2-R0.3-20140210.232337-32-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

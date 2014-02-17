@@ -1,0 +1,13 @@
+name: Engine
+version: 1.0.0-SNAPSHOT
+main: com.gmail.spraetz.plugin.Engineommands:
+  test:
+    description: Test command.
+    usage: /<command>
+    permission: test
+    permission-message: You don't have <permission>
+
+permissions:
+  test:
+    description: Gives access to the test command.
+    default: true
