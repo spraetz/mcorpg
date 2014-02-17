@@ -6,7 +6,10 @@ RpgEngine/RpgEngine.iml
 *.class
 
 # Ignore generated files by server
-server/*
+server/logs
+server/world
+server/world_nether
+server/world_the_end
 
 # Ignore Maven generated files other than the .jar
 RpgEngine/target/classes
