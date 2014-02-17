@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -57,6 +58,7 @@ public class Teleport extends Spell {
     }
 
     public static boolean validate(PlayerInteractEvent event){
-        return (event.getPlayer().getItemInHand().getType() == Material.ARROW);
+        return (event.getPlayer().getItemInHand().getType() == Material.ARROW) &&
+                event.getAction().equals(Action.RIGHT_CLICK_AIR);
     }
 }
