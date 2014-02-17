@@ -1,6 +1,8 @@
 name: Engine
 version: 1.0.0-SNAPSHOT
-main: com.gmail.spraetz.plugin.Engineommands:
+main: com.gmail.spraetz.plugin.Engine
+
+commands:
   test:
     description: Test command.
     usage: /<command>

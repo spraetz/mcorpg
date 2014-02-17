@@ -1,6 +1,6 @@
 # Ignore Intellij Settings
-RpgEngine/.idea/*
-RpgEngine/RpgEngine.iml
+Engine/.idea/*
+Engine/RpgEngine.iml
 
 # Ignore .class files for Java
 *.class
@@ -12,7 +12,8 @@ server/world_nether
 server/world_the_end
 server/banned-ips.txt
 server/banned-players.txt
+server/plugins/Engine/config.yml
 
 # Ignore Maven generated files other than the .jar
-RpgEngine/target/classes
-RpgEngine/target/maven-archiver
+Engine/target/classes/*
+Engine/target/maven-archiver/*

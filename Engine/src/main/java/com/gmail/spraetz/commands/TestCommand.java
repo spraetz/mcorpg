@@ -25,7 +25,7 @@ public class TestCommand implements CommandExecutor {
 
         if(commandString.equals("test")){
             Player p = (Player)sender;
-            p.sendMessage("Test!");
+            p.sendMessage(plugin.getConfig().getString("MOTD"));
             return true;
         }
 
