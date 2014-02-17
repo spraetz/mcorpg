@@ -1,6 +1,6 @@
 # Ignore Intellij Settings
 Engine/.idea/*
-Engine/RpgEngine.iml
+Engine/Engine.iml
 
 # Ignore .class files for Java
 *.class
@@ -17,3 +17,4 @@ server/plugins/Engine/config.yml
 # Ignore Maven generated files other than the .jar
 Engine/target/classes/*
 Engine/target/maven-archiver/*
+Engine/.idea/workspace.xml
