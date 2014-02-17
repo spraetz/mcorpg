@@ -1,31 +1,46 @@
 package com.gmail.spraetz.listeners;
 
-import org.bukkit.Material;
-import org.bukkit.entity.Fireball;
-import org.bukkit.entity.Player;
+import com.gmail.spraetz.com.gmail.spraetz.spells.Explosion;
+import com.gmail.spraetz.com.gmail.spraetz.spells.FireBlast;
+import com.gmail.spraetz.com.gmail.spraetz.spells.LightningBolt;
+import com.gmail.spraetz.com.gmail.spraetz.spells.Teleport;
+import com.gmail.spraetz.plugin.RpgEngine;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import static org.bukkit.Material.BOOK;
-import static org.bukkit.Material.FIREBALL;
 
 /**
  * Created by spraetz on 2/16/14.
  */
 public class CastSpellListener implements Listener {
 
+    RpgEngine plugin;
+
+    public CastSpellListener(RpgEngine plugin){
+        this.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void castSpell(PlayerInteractEvent event) {
-        Player p = event.getPlayer();
 
-        if(p.getItemInHand().getType() == Material.BOOK && event.getAction().equals(Action.RIGHT_CLICK_AIR)){
-            Fireball fireball = p.getWorld().spawn(p.getEyeLocation(), Fireball.class);
-            fireball.setIsIncendiary(false);
-            p.sendMessage(fireball.getDirection().toString());
-            fireball.setShooter(p);
+        // Cast an explosion spell
+        if(Explosion.validate(event)){
+            Explosion explosion = new Explosion(event.getPlayer(), plugin);
+            explosion.cast(event);
+        }
+        else if(FireBlast.validate(event)){
+            FireBlast fireblast = new FireBlast(event.getPlayer(), plugin);
+            fireblast.cast(event);
+        }
+        else if(LightningBolt.validate(event)){
+            LightningBolt lb = new LightningBolt(event.getPlayer(), plugin);
+            lb.cast(event);
+        }
+        else if(Teleport.validate(event)){
+            Teleport tp = new Teleport(event.getPlayer(), plugin);
+            tp.cast(event);
         }
     }
 }

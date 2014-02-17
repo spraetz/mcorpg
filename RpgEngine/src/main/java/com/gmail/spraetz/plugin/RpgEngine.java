@@ -33,6 +33,6 @@ public class RpgEngine extends JavaPlugin{
     }
 
     public void registerEventListeners(){
-        getServer().getPluginManager().registerEvents(new CastSpellListener(), this);
+        new CastSpellListener(this);
     }
 }
