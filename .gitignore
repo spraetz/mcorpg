@@ -10,6 +10,8 @@ server/logs
 server/world
 server/world_nether
 server/world_the_end
+server/banned-ips.txt
+server/banned-players.txt
 
 # Ignore Maven generated files other than the .jar
 RpgEngine/target/classes
