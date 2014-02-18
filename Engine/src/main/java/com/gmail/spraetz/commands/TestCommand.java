@@ -20,12 +20,11 @@ public class TestCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] strings) {
 
-
         String commandString = cmd.getName().toLowerCase();
 
         if(commandString.equals("test")){
             Player p = (Player)sender;
-            p.sendMessage(plugin.getConfig().getString("MOTD"));
+            p.sendMessage(plugin.getUser(p).name);
             return true;
         }
 

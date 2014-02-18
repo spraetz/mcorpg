@@ -1,30 +1,32 @@
 package com.gmail.spraetz.plugin;
 
+import com.gmail.spraetz.commands.ChargeSpellbook;
 import com.gmail.spraetz.commands.TestCommand;
+import com.gmail.spraetz.jobs.LoadPlayer;
 import com.gmail.spraetz.listeners.CastSpellListener;
+import com.gmail.spraetz.listeners.PlayerJoinListener;
 import com.gmail.spraetz.models.User;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.DatastoreImpl;
 import org.mongodb.morphia.Morphia;
-import org.mongodb.morphia.mapping.DefaultCreator;
-import org.mongodb.morphia.mapping.Mapper;
-import org.mongodb.morphia.mapping.MapperOptions;
 
-import java.io.File;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 /**
  * Created by spraetz on 2/16/14.
  */
 public class Engine extends JavaPlugin{
 
-    FileConfiguration config;
-    Datastore data;
+    public FileConfiguration config;
+    public Datastore data;
+
+    public HashMap<String, User> userMap = new HashMap<String, User>();
 
     @Override
     public void onEnable() {
@@ -45,6 +47,9 @@ public class Engine extends JavaPlugin{
 
         //Register Event Listeners
         registerEventListeners();
+
+        //Load entities into hashes
+        loadPlayers();
     }
 
     @Override
@@ -54,10 +59,12 @@ public class Engine extends JavaPlugin{
 
     public void registerCommands(){
         getCommand("test").setExecutor(new TestCommand(this));
+        getCommand("chargeSpellBook").setExecutor(new ChargeSpellbook(this));
     }
 
     public void registerEventListeners(){
         new CastSpellListener(this);
+        new PlayerJoinListener(this);
     }
 
     public void setupConfig(){
@@ -65,7 +72,6 @@ public class Engine extends JavaPlugin{
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
     }
-
 
     public boolean startDatabase(){
 
@@ -93,6 +99,26 @@ public class Engine extends JavaPlugin{
             getServer().getPluginManager().disablePlugin(this);
             return false;
         }
+    }
+
+    public void loadPlayers(){
+        for (Player p : getServer().getOnlinePlayers()){
+            LoadPlayer lp = new LoadPlayer(this, p);
+            lp.load();
+        }
+    }
+
+    // Utils
+    public User getUser(Player p){
+        return userMap.get(p.getName().toLowerCase());
+    }
+
+    public void setUser(Player p, User user){
+        userMap.put(p.getName().toLowerCase(), user);
+    }
+
+    public void removeUser(Player p){
+        userMap.remove(p.getName().toLowerCase());
     }
 
 }

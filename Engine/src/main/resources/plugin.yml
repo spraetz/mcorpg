@@ -8,8 +8,16 @@ commands:
     usage: /<command>
     permission: test
     permission-message: You don't have <permission>
+  chargeSpellbook:
+    description: Imbues a book with magic powers
+    usage: /<command> [spell] [charges]
+    permission: player
+    permission-message: You don't have <permission>
 
 permissions:
   test:
     description: Gives access to the test command.
+    default: true
+  player:
+    description: Default permission set for all players.
     default: true

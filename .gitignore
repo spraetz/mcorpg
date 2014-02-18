@@ -9,6 +9,7 @@ server/world_the_end
 server/banned-ips.txt
 server/banned-players.txt
 server/plugins/Engine/config.yml
+server/crash-reports
 
 # Ignore Maven generated files other than the .jar
 Engine/target/classes/*

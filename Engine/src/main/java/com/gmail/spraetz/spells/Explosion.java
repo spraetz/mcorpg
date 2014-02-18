@@ -1,24 +1,35 @@
-package com.gmail.spraetz.com.gmail.spraetz.spells;
+package com.gmail.spraetz.spells;
 
 import com.gmail.spraetz.plugin.Engine;
 import org.bukkit.Material;
 import org.bukkit.entity.Fireball;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by spraetz on 2/16/14.
  */
 public class Explosion extends Spell{
 
-    public Explosion(Player p, Engine plugin) {
-        super(p, plugin);
+    public Explosion(PlayerInteractEvent event, Engine plugin) {
+        super(event, plugin);
+    }
+
+    public static String getName(){
+        return "explosion";
     }
 
     @Override
-    public boolean cast(Event e){
+    public ItemStack[] getReagents() {
+        return new ItemStack[]{
+                new ItemStack(Material.LAPIS_ORE, 1)
+        };
+    }
+
+    @Override
+    public void spellEffects(PlayerEvent e){
 
         //Spawn a new fireball at the next tick at the player's current location.
         Fireball explosion = player.getWorld().spawn(player.getEyeLocation(), Fireball.class);
@@ -34,8 +45,6 @@ public class Explosion extends Spell{
 
         //Add metadata to the fireball so we know what it is and where it is going.
         addMetadata(explosion, player, plugin);
-
-        return true;
     }
 
     public static boolean validate(PlayerInteractEvent event){

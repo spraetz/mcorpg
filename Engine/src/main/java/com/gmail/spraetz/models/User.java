@@ -1,6 +1,8 @@
 package com.gmail.spraetz.models;
 
+import com.gmail.spraetz.plugin.Engine;
 import org.bson.types.ObjectId;
+import org.bukkit.entity.Player;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
@@ -14,7 +16,16 @@ public class User {
     @Id
     private ObjectId id;
 
-    private String name;
+    public String name;
 
-    private String bukkitId;
+    public static User getUser(Player p, Engine plugin){
+        return plugin.data.createQuery(User.class).field("name").equal(p.getName().toLowerCase()).get();
+    }
+
+    public static User createUser(Player p, Engine plugin){
+        User user = new User();
+        user.name = p.getName().toLowerCase();
+        plugin.data.save(user);
+        return user;
+    }
 }

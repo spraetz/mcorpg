@@ -1,14 +1,16 @@
 package com.gmail.spraetz.listeners;
 
-import com.gmail.spraetz.com.gmail.spraetz.spells.Explosion;
-import com.gmail.spraetz.com.gmail.spraetz.spells.FireBlast;
-import com.gmail.spraetz.com.gmail.spraetz.spells.LightningBolt;
-import com.gmail.spraetz.com.gmail.spraetz.spells.Teleport;
+import com.gmail.spraetz.spells.*;
 import com.gmail.spraetz.plugin.Engine;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 /**
  * Created by spraetz on 2/16/14.
@@ -25,22 +27,27 @@ public class CastSpellListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void castSpell(PlayerInteractEvent event) {
 
-        // Cast an explosion spell
-        if(Explosion.validate(event)){
-            Explosion explosion = new Explosion(event.getPlayer(), plugin);
-            explosion.cast(event);
-        }
-        else if(FireBlast.validate(event)){
-            FireBlast fireblast = new FireBlast(event.getPlayer(), plugin);
-            fireblast.cast(event);
-        }
-        else if(LightningBolt.validate(event)){
-            LightningBolt lb = new LightningBolt(event.getPlayer(), plugin);
-            lb.cast(event);
-        }
-        else if(Teleport.validate(event)){
-            Teleport tp = new Teleport(event.getPlayer(), plugin);
-            tp.cast(event);
+        // Check if they have a spellbook in their hand.
+        if(event.getPlayer().getItemInHand().getType() == Material.BOOK){
+
+            // See if the display name matches the name of a spell.
+            String displayName = event.getPlayer().getItemInHand().getItemMeta().getDisplayName();
+
+            if(Spell.getSpells().get(displayName) != null){
+                Class spellClass = Spell.getSpells().get(displayName);
+
+                try{
+
+                    Constructor constructor = spellClass.getConstructor(new Class[]{PlayerInteractEvent.class, Engine.class});
+                    Object obj = constructor.newInstance(event, plugin);
+                    Method method = obj.getClass().getMethod("cast");
+                    method.invoke(obj);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 }
