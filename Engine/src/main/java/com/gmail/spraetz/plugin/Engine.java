@@ -13,7 +13,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.DatastoreImpl;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.mapping.Mapper;
+import org.mongodb.morphia.mapping.MapperOptions;
 
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -86,12 +89,20 @@ public class Engine extends JavaPlugin{
         }
 
         try{
+            //Create MongoDB client
             MongoClient mongo = new MongoClient(new MongoClientURI(mongoUri));
             mongo.setWriteConcern(WriteConcern.SAFE);
+
+            //Create Morphia
             Morphia morphia = new Morphia();
             morphia.map(User.class);
 
-            data = morphia.createDatastore(mongo, "engine");
+            //Create Datastore
+            MapperOptions opts = new MapperOptions();
+            opts.objectFactory = new CustomCreator(this.getClassLoader());
+            Mapper mapper = new Mapper(opts);
+            this.data = new DatastoreImpl(mapper, mongo, "engine");
+
             return true;
         }
         catch(UnknownHostException e){
