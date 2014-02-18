@@ -42,9 +42,6 @@ public abstract class Spell {
 
         PlayerInteractEvent e = (PlayerInteractEvent)event;
 
-        System.out.println(e.getPlayer().getName());
-        System.out.println(e.getPlayer().getItemInHand().getType());
-
         // Check if there are charges on the spellbook
         Integer charges = Spellbook.getCharges(event.getPlayer().getItemInHand());
 
