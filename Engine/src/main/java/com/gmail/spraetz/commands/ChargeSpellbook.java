@@ -2,6 +2,7 @@ package com.gmail.spraetz.commands;
 
 import com.gmail.spraetz.plugin.Engine;
 import com.gmail.spraetz.spells.Spell;
+import com.gmail.spraetz.spells.Spellbook;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -45,9 +48,20 @@ public class ChargeSpellbook implements CommandExecutor {
         }
 
         // Make sure they have a spell name in the args.
-        if(strings.length < 1){
-            p.sendMessage("Not enough arguments.");
+        if(strings.length < 1 || strings.length > 2){
+            p.sendMessage("Incorrect number of arguments.");
             return false;
+        }
+
+        Integer limit = Spellbook.MAX_SPELL_CHARGES;
+        if(strings.length == 2){
+            try{
+                limit = Integer.parseInt(strings[1]);
+            }
+            catch(Exception e){
+                p.sendMessage("charges must be an integer.");
+                return false;
+            }
         }
 
         //Get the spell they'd like to charge.
@@ -61,16 +75,85 @@ public class ChargeSpellbook implements CommandExecutor {
             return true;
         }
 
-        //TODO: Make sure if the book is already charged that we're adding the same spell on top.
+        //Make sure if the book is already charged that we're adding the same spell on top.
+        if(Spellbook.isSpellbook(book) && !Spellbook.getSpell(book).equals(spellName)){
+            p.sendMessage("That book has a different spell on it!");
+            return true;
+        }
 
-        //Add metadata to the book
-        ItemMeta itemMeta = book.getItemMeta();
-        itemMeta.setDisplayName(spellName);
-        itemMeta.setLore(new ArrayList<String>(){{
-            add("charges: 64");
-        }});
+        Integer currentCharges = Spellbook.getCharges(book);
+        ItemStack[] reagents = null;
 
-        book.setItemMeta(itemMeta);
+        // Get the reagent for adding this spell.
+        try {
+            Method m = spellClass.getMethod("getReagents");
+            reagents = (ItemStack[])m.invoke(null);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+        // Find out how many of each reagent we have in our inventory.
+        Integer[] reagentsInInventory = new Integer[reagents.length];
+
+        for(int i = 0; i < reagents.length; i++){
+
+            reagentsInInventory[i] = 0;
+
+            for(ItemStack item : p.getInventory().getContents()){
+
+                if(item == null){
+                    continue;
+                }
+                if(item.getType() == reagents[i].getType()){
+                    reagentsInInventory[i] += item.getAmount();
+                }
+            }
+        }
+
+        // Find the limiting reagent.
+        Integer smallestNumber = (Spellbook.MAX_SPELL_CHARGES - currentCharges) > limit
+                ? limit : (Spellbook.MAX_SPELL_CHARGES - currentCharges);
+
+        for(int i = 0; i < reagents.length; i++){
+
+            if(reagentsInInventory[i] / reagents[i].getAmount() < smallestNumber){
+                smallestNumber = reagentsInInventory[i] / reagents[i].getAmount();
+            }
+        }
+
+        // Remove items from inventory
+        for(ItemStack reagent : reagents){
+
+            Integer leftToFind = reagent.getAmount() * smallestNumber;
+
+            for(ItemStack item : p.getInventory().getContents()){
+                if(item != null && item.getType() == reagent.getType() && leftToFind > 0){
+
+                    Integer amountFound = item.getAmount();
+
+                    //If we find an item and we can remove it all, remove it all.
+                    if(item.getAmount() <= leftToFind){
+                        p.getInventory().remove(item);
+                        leftToFind -= amountFound;
+                    }
+                    //Otherwise we have to remove some of it.
+                    else{
+                        item.setAmount(item.getAmount() - leftToFind);
+                        leftToFind = 0;
+                    }
+                }
+            }
+        }
+
+        if(smallestNumber > 0){
+            Spellbook.setSpell(book, spellName);
+            Spellbook.addCharges(book, smallestNumber);
+        }
+        else{
+            p.sendMessage("You can't charge that spellbook right now.  Is it full or are you missing reagents?");
+        }
 
         return true;
     }

@@ -24,10 +24,9 @@ public class Teleport extends Spell {
         return "teleport";
     }
 
-    @Override
-    public ItemStack[] getReagents() {
+    public static ItemStack[] getReagents() {
         return new ItemStack[]{
-                new ItemStack(Material.LAPIS_ORE, 1)
+                new ItemStack(Material.ARROW, 1)
         };
     }
 

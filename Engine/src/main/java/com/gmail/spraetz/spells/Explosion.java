@@ -21,10 +21,9 @@ public class Explosion extends Spell{
         return "explosion";
     }
 
-    @Override
-    public ItemStack[] getReagents() {
+    public static ItemStack[] getReagents() {
         return new ItemStack[]{
-                new ItemStack(Material.LAPIS_ORE, 1)
+                new ItemStack(Material.YELLOW_FLOWER, 1)
         };
     }
 

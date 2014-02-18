@@ -59,7 +59,7 @@ public class Engine extends JavaPlugin{
 
     public void registerCommands(){
         getCommand("test").setExecutor(new TestCommand(this));
-        getCommand("chargeSpellBook").setExecutor(new ChargeSpellbook(this));
+        getCommand("charge").setExecutor(new ChargeSpellbook(this));
     }
 
     public void registerEventListeners(){

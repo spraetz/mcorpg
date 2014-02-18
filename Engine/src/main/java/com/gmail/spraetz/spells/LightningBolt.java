@@ -20,10 +20,9 @@ public class LightningBolt extends Spell {
         return "lightning_bolt";
     }
 
-    @Override
-    public ItemStack[] getReagents() {
+    public static ItemStack[] getReagents() {
         return new ItemStack[]{
-                new ItemStack(Material.LAPIS_ORE, 1)
+            new ItemStack(Material.INK_SACK, 1, (byte)4)
         };
     }
 
@@ -31,7 +30,6 @@ public class LightningBolt extends Spell {
     public void spellEffects(PlayerEvent event) {
         player.getWorld().strikeLightning(player.getTargetBlock(null, 20).getLocation());
     }
-
 
     public static boolean validate(PlayerInteractEvent event){
         return (event.getPlayer().getItemInHand().getType() == Material.YELLOW_FLOWER) &&

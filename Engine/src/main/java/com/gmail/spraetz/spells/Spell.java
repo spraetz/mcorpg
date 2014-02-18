@@ -2,18 +2,14 @@ package com.gmail.spraetz.spells;
 
 import com.gmail.spraetz.plugin.Engine;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by spraetz on 2/16/14.
@@ -31,10 +27,12 @@ public abstract class Spell {
     }
 
     public static String getName() throws Exception {
-        throw new Exception("Not implemented error");
+        throw new NotImplementedException();
     }
 
-    public abstract ItemStack[] getReagents();
+    public static ItemStack[] getReagents() throws Exception {
+        throw new NotImplementedException();
+    }
 
     public static boolean validate(){
         return false;
@@ -48,7 +46,7 @@ public abstract class Spell {
         System.out.println(e.getPlayer().getItemInHand().getType());
 
         // Check if there are charges on the spellbook
-        Integer charges = getCharges(event.getPlayer().getItemInHand());
+        Integer charges = Spellbook.getCharges(event.getPlayer().getItemInHand());
 
         // Remove one charge
         if(charges == 0){
@@ -56,7 +54,7 @@ public abstract class Spell {
             return false;
         }
 
-        setCharges(event.getPlayer().getItemInHand(), charges-1);
+        Spellbook.setCharges(event.getPlayer().getItemInHand(), charges - 1);
 
         // Cause spell effects
         spellEffects(event);
@@ -80,22 +78,5 @@ public abstract class Spell {
         spellMap.put(Teleport.getName(), Teleport.class);
 
         return spellMap;
-    }
-
-    public static String chargeString(Integer numberOfCharges){
-        return "charges: " + numberOfCharges;
-    }
-
-    public static Integer getCharges(ItemStack spellbook){
-        ArrayList<String> loreList = (ArrayList<String>)spellbook.getItemMeta().getLore();
-        return Integer.parseInt(loreList.get(0).split(" ")[1]);
-    }
-
-    public static void setCharges(ItemStack spellbook, Integer numberOfCharges){
-        ItemMeta itemMeta = spellbook.getItemMeta();
-        ArrayList<String> loreList = (ArrayList<String>)itemMeta.getLore();
-        loreList.set(0, chargeString(numberOfCharges));
-        itemMeta.setLore(loreList);
-        spellbook.setItemMeta(itemMeta);
     }
 }

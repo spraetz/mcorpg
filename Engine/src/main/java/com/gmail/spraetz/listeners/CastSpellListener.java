@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -28,7 +29,7 @@ public class CastSpellListener implements Listener {
     public void castSpell(PlayerInteractEvent event) {
 
         // Check if they have a spellbook in their hand.
-        if(event.getPlayer().getItemInHand().getType() == Material.BOOK){
+        if(event.getPlayer().getItemInHand().getType() == Material.BOOK && event.getAction() == Action.RIGHT_CLICK_AIR){
 
             // See if the display name matches the name of a spell.
             String displayName = event.getPlayer().getItemInHand().getItemMeta().getDisplayName();

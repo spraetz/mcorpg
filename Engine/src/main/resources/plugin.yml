@@ -8,9 +8,9 @@ commands:
     usage: /<command>
     permission: test
     permission-message: You don't have <permission>
-  chargeSpellbook:
+  charge:
     description: Imbues a book with magic powers
-    usage: /<command> [spell] [charges]
+    usage: /<command> spell [charges]
     permission: player
     permission-message: You don't have <permission>
 

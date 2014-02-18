@@ -21,10 +21,9 @@ public class FireBlast extends Spell {
         return "fire_blast";
     }
 
-    @Override
-    public ItemStack[] getReagents() {
+    public static ItemStack[] getReagents() {
         return new ItemStack[]{
-                new ItemStack(Material.LAPIS_ORE, 1)
+                new ItemStack(Material.RED_ROSE, 1)
         };
     }
 
