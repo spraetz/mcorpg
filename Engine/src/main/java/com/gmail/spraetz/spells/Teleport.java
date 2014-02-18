@@ -65,9 +65,4 @@ public class Teleport extends Spell {
         // Make a lightning clap to sound badass.
         player.getWorld().strikeLightningEffect(player.getTargetBlock(null, 20).getLocation().add(0, 1, 0));
     }
-
-    public static boolean validate(PlayerInteractEvent event){
-        return (event.getPlayer().getItemInHand().getType() == Material.ARROW) &&
-                event.getAction().equals(Action.RIGHT_CLICK_AIR);
-    }
 }

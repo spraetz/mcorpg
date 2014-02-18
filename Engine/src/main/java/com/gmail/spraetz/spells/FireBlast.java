@@ -45,9 +45,4 @@ public class FireBlast extends Spell {
         //Add metadata to the fireball so we know what it is and where it is going.
         addMetadata(fireblast, player, plugin);
     }
-
-    public static boolean validate(PlayerInteractEvent event){
-        return (event.getPlayer().getItemInHand().getType() == Material.RED_ROSE) &&
-                event.getAction().equals(Action.RIGHT_CLICK_AIR);
-    }
 }

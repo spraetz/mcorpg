@@ -30,9 +30,4 @@ public class LightningBolt extends Spell {
     public void spellEffects(PlayerEvent event) {
         player.getWorld().strikeLightning(player.getTargetBlock(null, 20).getLocation());
     }
-
-    public static boolean validate(PlayerInteractEvent event){
-        return (event.getPlayer().getItemInHand().getType() == Material.YELLOW_FLOWER) &&
-                event.getAction().equals(Action.RIGHT_CLICK_AIR);
-    }
 }

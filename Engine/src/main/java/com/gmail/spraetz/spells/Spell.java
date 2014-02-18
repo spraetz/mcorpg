@@ -34,10 +34,6 @@ public abstract class Spell {
         throw new NotImplementedException();
     }
 
-    public static boolean validate(){
-        return false;
-    }
-
     public boolean cast(){
 
         PlayerInteractEvent e = (PlayerInteractEvent)event;
