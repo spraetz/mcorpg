@@ -82,16 +82,10 @@ public class ChargeSpellbook implements CommandExecutor {
         }
 
         Integer currentCharges = Spellbook.getCharges(book);
-        ItemStack[] reagents = null;
+        ItemStack[] reagents;
 
         // Get the reagent for adding this spell.
-        try {
-            reagents = Spell.getReagents(spellName, plugin);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        reagents = Spell.getReagents(spellName, plugin);
 
         // Find out how many of each reagent we have in our inventory.
         Integer[] reagentsInInventory = new Integer[reagents.length];

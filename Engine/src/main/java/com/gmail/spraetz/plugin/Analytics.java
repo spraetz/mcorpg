@@ -20,11 +20,11 @@ public class Analytics {
         String projectId = this.plugin.getConfig().getString("keen.project_id");
         String writeKey = this.plugin.getConfig().getString("keen.write_key");
 
-        plugin.getLogger().info(projectId);
 
         if( projectId != null && writeKey != null){
             KeenClient.initialize(projectId, writeKey, null);
             client = KeenClient.client();
+            plugin.getLogger().info("Logging analytics data to Keen IO Project: " + projectId);
         }
         else{
             client = null;

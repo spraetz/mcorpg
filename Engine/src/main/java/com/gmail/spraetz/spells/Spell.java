@@ -28,7 +28,7 @@ public abstract class Spell {
         this.event = event;
     }
 
-    public static ItemStack[] getReagents(String spellName, Engine plugin) throws Exception {
+    public static ItemStack[] getReagents(String spellName, Engine plugin){
         String settingName = "spells." + spellName + ".reagents";
 
         List reagents = plugin.getConfig().getList(settingName);
