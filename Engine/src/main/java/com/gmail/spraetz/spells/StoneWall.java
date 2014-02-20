@@ -49,6 +49,10 @@ public class StoneWall extends Spell {
 
     }
 
+    /*
+     *  I stole the shit out of this from this URL:
+     *  http://groups.csail.mit.edu/graphics/classes/6.837/F99/grading/asst2/turnin/rdror/Bresenham.java
+     */
     private void draw(int x1, int z1, int x2, int z2, int y, PlayerInteractEvent event){
         boolean xz_swap = false;
         if (Math.abs(z2 - z1) > Math.abs(x2 - x1)) {
@@ -120,6 +124,11 @@ public class StoneWall extends Spell {
         }
     }
 
+    /*
+     *  Removes the bedrock added by setColumn after a random amount of time.
+     *  Gives it a cool "dissolving wall" look.
+     *
+     */
     private class BedRockRemover extends BukkitRunnable {
 
         private final Engine plugin;
