@@ -3,13 +3,9 @@ package com.gmail.spraetz.spells;
 import com.gmail.spraetz.plugin.Engine;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by spraetz on 2/16/14.

@@ -38,3 +38,8 @@ spells:
       width: 4
       minimum_ticks: 80
       maximum_ticks: 120
+  heal_self:
+    class: HealSelf
+    reagents:
+      - reagent: DIAMOND
+        quantity: 1

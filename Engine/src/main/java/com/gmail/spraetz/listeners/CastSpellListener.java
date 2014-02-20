@@ -35,6 +35,7 @@ public class CastSpellListener implements Listener {
             String displayName = event.getPlayer().getItemInHand().getItemMeta().getDisplayName();
 
             if(Spell.spellExists(displayName, plugin)){
+
                 Class spellClass = Spell.getSpellClass(displayName, plugin);
                 try{
                     Constructor constructor = spellClass.getConstructor(new Class[]{PlayerInteractEvent.class, Engine.class});
