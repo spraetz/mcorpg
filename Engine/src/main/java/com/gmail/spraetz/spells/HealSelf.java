@@ -1,7 +1,6 @@
 package com.gmail.spraetz.spells;
 
 import com.gmail.spraetz.plugin.Engine;
-import org.bukkit.Effect;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -30,6 +29,5 @@ public class HealSelf extends Spell{
         else{
             player.setHealth(newHealth);
         }
-        player.playEffect(player.getLocation(), Effect.POTION_BREAK, null);
     }
 }

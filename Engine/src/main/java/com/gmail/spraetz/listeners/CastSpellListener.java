@@ -47,7 +47,6 @@ public class CastSpellListener implements Listener {
                     e.printStackTrace();
                 }
             }
-
         }
     }
 }
