@@ -1,8 +1,9 @@
 package com.gmail.spraetz.spells;
 
 import com.gmail.spraetz.plugin.Engine;
+import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -16,18 +17,14 @@ public class LightningBolt extends Spell {
         super(event, plugin);
     }
 
-    public static String getName(){
-        return "lightning_bolt";
-    }
-
-    public static ItemStack[] getReagents() {
-        return new ItemStack[]{
-            new ItemStack(Material.INK_SACK, 1, (byte)4)
-        };
-    }
-
     @Override
     public void spellEffects(PlayerEvent event) {
-        player.getWorld().strikeLightning(player.getTargetBlock(null, 20).getLocation());
+
+        Location strikeLocation = player.getTargetBlock(null, 20).getLocation();
+
+        player.getWorld().strikeLightning(strikeLocation);
+
+        //TODO: This doesn't work for some reason?
+        player.getWorld().playEffect(strikeLocation, Effect.SMOKE, 4, 20);
     }
 }

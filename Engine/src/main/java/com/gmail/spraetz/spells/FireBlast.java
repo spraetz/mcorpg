@@ -17,16 +17,6 @@ public class FireBlast extends Spell {
         super(event, plugin);
     }
 
-    public static String getName(){
-        return "fire_blast";
-    }
-
-    public static ItemStack[] getReagents() {
-        return new ItemStack[]{
-                new ItemStack(Material.RED_ROSE, 1)
-        };
-    }
-
     @Override
     public void spellEffects(PlayerEvent event) {
 

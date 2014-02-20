@@ -1,5 +1,6 @@
 package com.gmail.spraetz.spells;
 
+import com.gmail.spraetz.plugin.Engine;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -58,8 +59,8 @@ public class Spellbook {
         return spellbook.getItemMeta().getDisplayName();
     }
 
-    public static boolean isSpellbook(ItemStack book){
+    public static boolean isSpellbook(ItemStack book, Engine plugin){
         ItemMeta itemMeta = book.getItemMeta();
-        return Spell.getSpells().containsKey(itemMeta.getDisplayName());
+        return Spell.spellExists(itemMeta.getDisplayName(), plugin);
     }
 }

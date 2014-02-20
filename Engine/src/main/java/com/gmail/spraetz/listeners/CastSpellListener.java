@@ -34,11 +34,9 @@ public class CastSpellListener implements Listener {
             // See if the display name matches the name of a spell.
             String displayName = event.getPlayer().getItemInHand().getItemMeta().getDisplayName();
 
-            if(Spell.getSpells().get(displayName) != null){
-                Class spellClass = Spell.getSpells().get(displayName);
-
+            if(Spell.spellExists(displayName, plugin)){
+                Class spellClass = Spell.getSpellClass(displayName, plugin);
                 try{
-
                     Constructor constructor = spellClass.getConstructor(new Class[]{PlayerInteractEvent.class, Engine.class});
                     Object obj = constructor.newInstance(event, plugin);
                     Method method = obj.getClass().getMethod("cast");

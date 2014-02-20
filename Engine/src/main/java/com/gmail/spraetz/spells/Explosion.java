@@ -3,10 +3,12 @@ package com.gmail.spraetz.spells;
 import com.gmail.spraetz.plugin.Engine;
 import org.bukkit.Material;
 import org.bukkit.entity.Fireball;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by spraetz on 2/16/14.
@@ -15,16 +17,6 @@ public class Explosion extends Spell{
 
     public Explosion(PlayerInteractEvent event, Engine plugin) {
         super(event, plugin);
-    }
-
-    public static String getName(){
-        return "explosion";
-    }
-
-    public static ItemStack[] getReagents() {
-        return new ItemStack[]{
-                new ItemStack(Material.YELLOW_FLOWER, 1)
-        };
     }
 
     @Override

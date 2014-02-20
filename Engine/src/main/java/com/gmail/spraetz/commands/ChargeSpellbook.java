@@ -68,7 +68,7 @@ public class ChargeSpellbook implements CommandExecutor {
         String spellName = strings[0];
 
         //Check if there's a spell with that spell name.
-        Class spellClass = Spell.getSpells().get(spellName);
+        Class spellClass = Spell.getSpellClass(spellName, plugin);
 
         if(spellClass == null){
             p.sendMessage("There is no spell with that name.  /help spells");
@@ -76,7 +76,7 @@ public class ChargeSpellbook implements CommandExecutor {
         }
 
         //Make sure if the book is already charged that we're adding the same spell on top.
-        if(Spellbook.isSpellbook(book) && !Spellbook.getSpell(book).equals(spellName)){
+        if(Spellbook.isSpellbook(book, plugin) && !Spellbook.getSpell(book).equals(spellName)){
             p.sendMessage("That book has a different spell on it!");
             return true;
         }
@@ -86,8 +86,7 @@ public class ChargeSpellbook implements CommandExecutor {
 
         // Get the reagent for adding this spell.
         try {
-            Method m = spellClass.getMethod("getReagents");
-            reagents = (ItemStack[])m.invoke(null);
+            reagents = Spell.getReagents(spellName, plugin);
         }
         catch(Exception e){
             e.printStackTrace();

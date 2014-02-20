@@ -1,2 +1,31 @@
 # Default config.yml for Engine
 MongoURI: null
+
+spells:
+  explosion:
+    class: Explosion
+    reagents:
+      - reagent: YELLOW_FLOWER
+        quantity: 1
+      - reagent: RED_ROSE
+        quantity: 1
+  fire_blast:
+    class: FireBlast
+    reagents:
+      - reagent: YELLOW_FLOWER
+        quantity: 1
+  lightning_bolt:
+    class: LightningBolt
+    reagents:
+      - reagent: INK_SACK
+        quantity: 1
+  teleport:
+    class: Teleport
+    reagents:
+      - reagent: ARROW
+        quantity: 1
+  stone_wall:
+    class: StoneWall
+    reagents:
+      - reagent: STONE
+        quantity: 8
