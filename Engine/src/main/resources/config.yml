@@ -1,6 +1,10 @@
 # Default config.yml for Engine
 MongoURI: null
 
+keen:
+  project_id: null
+  write_key: null
+
 spells:
   explosion:
     class: Explosion

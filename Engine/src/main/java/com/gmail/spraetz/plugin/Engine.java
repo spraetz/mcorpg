@@ -9,7 +9,6 @@ import com.gmail.spraetz.models.User;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteConcern;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mongodb.morphia.Datastore;
@@ -26,10 +25,9 @@ import java.util.HashMap;
  */
 public class Engine extends JavaPlugin{
 
-    public FileConfiguration config;
     public Datastore data;
-
     public HashMap<String, User> userMap = new HashMap<String, User>();
+    public Analytics analytics;
 
     @Override
     public void onEnable() {
@@ -37,6 +35,9 @@ public class Engine extends JavaPlugin{
 
         //Set up the config
         setupConfig();
+
+        //Set up tracking
+        analytics = setupAnalytics();
 
         // Fire up the database.
         boolean success = startDatabase();
@@ -74,6 +75,10 @@ public class Engine extends JavaPlugin{
         //Look for a config.yml file in the plugins folder.
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
+    }
+
+    public Analytics setupAnalytics() {
+        return new Analytics(this);
     }
 
     public boolean startDatabase(){
