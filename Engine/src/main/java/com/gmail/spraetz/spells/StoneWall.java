@@ -24,6 +24,9 @@ public class StoneWall extends Spell {
 
         PlayerInteractEvent e = (PlayerInteractEvent)event;
 
+        //Get width of wall
+        Integer width = plugin.getConfig().getInt("spells.stone_wall.settings.width");
+
         //Get the block the player clicked.
         Block b = event.getPlayer().getTargetBlock(null, 20);
 
@@ -38,8 +41,8 @@ public class StoneWall extends Spell {
         Double z1 = wallMiddle.getZ() + (slope / Math.sqrt(1+Math.pow(slope, 2)));
 
         //Find point 2
-        Double x2 = wallMiddle.getX() - (3 * (1 / Math.sqrt(1+Math.pow(slope, 2))));
-        Double z2 = wallMiddle.getZ() - (3 * (slope / Math.sqrt(1+Math.pow(slope, 2))));
+        Double x2 = wallMiddle.getX() - ((width) * (1 / Math.sqrt(1+Math.pow(slope, 2))));
+        Double z2 = wallMiddle.getZ() - ((width) * (slope / Math.sqrt(1+Math.pow(slope, 2))));
 
         draw((int)Math.round(x1), (int)Math.round(z1),
                 (int)Math.round(x2), (int)Math.round(z2),  wallMiddle.getBlockY(), e);
@@ -103,7 +106,10 @@ public class StoneWall extends Spell {
     }
     
     private void setColumn(int x, int y, int z, PlayerInteractEvent event){
-        for (int i = y-2; i < y+4; i++){
+
+        Integer height = plugin.getConfig().getInt("spells.stone_wall.settings.height");
+
+        for (int i = y-(height/2)+1; i <= y+(height/2)+1; i++){
 
             Block block = event.getPlayer().getWorld().getBlockAt(x, i, z);
             if(block.getType() == Material.AIR){
@@ -125,9 +131,15 @@ public class StoneWall extends Spell {
         }
 
         public void remove(){
-            //Generate a random number between 80 and 120 ticks (4 to 6 seconds).
+            //Generate a random number between min and max lifetime
+            Integer max = plugin.getConfig().getInt("spells.stone_wall.settings.maximum_ticks");
+            Integer min = plugin.getConfig().getInt("spells.stone_wall.settings.minimum_ticks");
+
+            System.out.println(max);
+            System.out.println(min);
+
             Random rand = new Random();
-            plugin.getServer().getScheduler().runTaskLater(plugin, this, rand.nextInt(40) + 80);
+            plugin.getServer().getScheduler().runTaskLater(plugin, this, rand.nextInt(max - min) + min);
         }
 
         @Override
